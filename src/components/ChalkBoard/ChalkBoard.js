@@ -34,6 +34,10 @@ function ChalkBoard() {
           </div>
         </div>
         <div id="score-area"></div>
+        <div id="eraser">
+          <div id="eraser-top"></div>
+          <div id="eraser-bottom"></div>
+        </div>
       </div>
     );
   }

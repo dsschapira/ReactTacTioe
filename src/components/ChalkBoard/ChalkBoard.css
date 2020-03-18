@@ -15,6 +15,7 @@ ol{
     border: 6px solid #c19b6c;
     background-color: #3b653d;
     display: flex;
+    position: relative;
     flex-wrap: wrap;
     justify-content: space-around;
 }
@@ -63,7 +64,33 @@ ol{
     border-right: 2px solid #fff;
 }
 
+#eraser{
+    position: absolute;
+    width: 75px;
+    height: 15px;
+    bottom: 0;
+    right: 5%;
+}
 
+#eraser-top{
+    background-color: #000;
+    position: relative;
+    width: 100%;
+    height: 5px;
+    padding: 0 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#eraser-bottom{
+    background-color: gray;
+    position: relative;
+    width: 100%;
+    height: 10px;
+    margin: 0 5px;
+}
 
 #score-area{
     height: 100px;
