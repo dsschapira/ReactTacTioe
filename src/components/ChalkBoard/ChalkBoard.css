@@ -1,7 +1,81 @@
+hr{
+    background-color: #fff;
+    height: 2px;
+}
+
+ol{
+    padding-right: 40px;
+}
+
 #chalkBoard{
     min-width: 330px;
-    max-width: 700px;
-    height: 400px;
+    width: 100%;
+    max-width: 1000px;
+    height: 500px;
     border: 6px solid #c19b6c;
     background-color: #3b653d;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#rules-container{
+    min-width: 15%;
+    max-width: 33%;
+    padding-right: 1em;
+}
+
+#play-area{
+    width: 60%;
+    max-width: 500px;
+    height: 20px;
+    margin-top: 2em;
+    display:flex;
+    flex-wrap: wrap;
+}
+.row{
+    width: 100%;
+    display: flex;
+}
+#top-row{
+    border-bottom: 2px solid #fff;
+    height: 100px;
+}
+
+#mid-row{
+    border-bottom: 2px solid #fff;
+    height: 100px;
+}
+
+#bot-row{
+    height: 100px;
+}
+
+.col{
+    width: 33%;
+}
+
+.left-col{
+    border-right: 2px solid #fff;
+}
+
+.mid-col{
+    border-right: 2px solid #fff;
+}
+
+
+
+#score-area{
+    height: 100px;
+    width: 100%;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    border-top: 1px solid #fff;
+    align-self: flex-end;
+}
+
+@media only screen and (max-width: 470px) {
+    #play-area{
+        width: 50%;
+    }
 }
