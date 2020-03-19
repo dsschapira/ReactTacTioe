@@ -1,4 +1,5 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+import {useSpring, animated} from 'react-spring';
 import './GameSpace.css';
 
 import { GameContext } from '../../context/GameState';
@@ -31,9 +32,13 @@ function GameSpace() {
         } = useContext(GameContext);
     let board;
     let player;
+    
+    //animation values
+    let animatedEl;
 
-    const handleClick = (id) => {
+    const handleClick = (id, pos) => {
         //make sure they're not clicking during the computer's turn
+        updateMousePos(pos);
         if(!player.isComputer){
             const boardIndex = BOARD_INDICES[id];
             updateBoardProceedTurn(boardIndex);
@@ -140,6 +145,7 @@ function GameSpace() {
             currentPlayer.highScore = currentPlayer.score;
         }
 
+        handleScoreAnimation(scoreChange);
         updateScore(players);
     }
 
@@ -156,7 +162,32 @@ function GameSpace() {
             players.two.highScore = players.two.score;
         }
 
+        handleScoreAnimation(scoreChange);
         updateScore(players);
+    }
+
+    const handleScoreAnimation = (scoreChange) => {
+        if(!player.isComputer){
+            switch(scoreChange){
+                case DRAW_PONTS:
+                    animatedEl = <>
+                        <span>+{DRAW_PONTS}</span>
+                        <span>Draw!</span>
+                    </>;
+                    break;
+                case WIN_POINTS:
+                    animatedEl = <>
+                        <span>+{WIN_POINTS}</span>
+                        <span>YOU WIN!</span>
+                    </>;
+                case BLOCK_POINTS:
+                    animatedEl = <>
+                        <span>+{BLOCK_POINTS}</span>
+                        <span>Block!</span>
+                    </>;
+
+            }
+        }
     }
 
     const handleScoreReset = () => {
@@ -177,41 +208,52 @@ function GameSpace() {
         }
     });
 
+    const [mousePos, updateMousePos] = useState({x: 0, y: 0});
+
+    const animatedProps = useSpring({
+        to: [{opacity: 1, top: mousePos.y},{opacity: 0, top: mousePos.y-100}],
+        from: {opacity: 0, left: mousePos.x, top: mousePos.y+100}
+    });
+
+
     return (
         <div id="play-area">
             <div id="top-row" className="row">
-                <div className="left-col col" id="A" onClick={(e) => { handleClick(e.target.id) }}>
+                <div className="left-col col" id="A" onClick={(e) => { handleClick(e.target.id, {x: e.pageX-700, y: e.pageY}) }}>
                     <Piece slotId="A" />
                 </div>
-                <div className="mid-col col" id="B" onClick={(e) => { handleClick(e.target.id) }}>
+                <div className="mid-col col" id="B" onClick={(e) => { handleClick(e.target.id, {x: e.pageX-700, y: e.pageY}) }}>
                     <Piece slotId="B" />
                 </div>
-                <div className="right-col col" id="C" onClick={(e) => { handleClick(e.target.id) }}>
+                <div className="right-col col" id="C" onClick={(e) => { handleClick(e.target.id, {x: e.pageX-700, y: e.pageY}) }}>
                     <Piece slotId="C" />
                 </div>
             </div>
             <div id="mid-row" className="row">
-                <div className="left-col col" id="D" onClick={(e) => { handleClick(e.target.id) }}>
+                <div className="left-col col" id="D" onClick={(e) => { handleClick(e.target.id, {x: e.pageX-700, y: e.pageY}) }}>
                     <Piece slotId="D" />
                 </div>
-                <div className="mid-col col" id="E" onClick={(e) => { handleClick(e.target.id) }}>
+                <div className="mid-col col" id="E" onClick={(e) => { handleClick(e.target.id, {x: e.pageX-700, y: e.pageY}) }}>
                     <Piece slotId="E" />
                 </div>
-                <div className="right-col col" id="F" onClick={(e) => { handleClick(e.target.id) }}>
+                <div className="right-col col" id="F" onClick={(e) => { handleClick(e.target.id, {x: e.pageX-700, y: e.pageY}) }}>
                     <Piece slotId="F" />
                 </div>
             </div>
             <div id="bot-row" className="row">
-                <div className="left-col col" id="G" onClick={(e) => { handleClick(e.target.id) }}>
+                <div className="left-col col" id="G" onClick={(e) => { handleClick(e.target.id, {x: e.pageX-700, y: e.pageY}) }}>
                     <Piece slotId="G" />
                 </div>
-                <div className="mid-col col" id="H" onClick={(e) => { handleClick(e.target.id) }}>
+                <div className="mid-col col" id="H" onClick={(e) => { handleClick(e.target.id, {x: e.pageX-700, y: e.pageY}) }}>
                     <Piece slotId="H" />
                 </div>
-                <div className="right-col col" id="I" onClick={(e) => { handleClick(e.target.id) }}>
+                <div className="right-col col" id="I" onClick={(e) => { handleClick(e.target.id, {x: e.pageX-700, y: e.pageY}) }}>
                     <Piece slotId="I" />
                 </div>
             </div>
+            <animated.div style={animatedProps}>
+                <h1>TEST</h1>
+            </animated.div>
         </div>
     );
 }
