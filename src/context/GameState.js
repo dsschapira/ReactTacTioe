@@ -2,9 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
 
 import {initialState, 
-        PLAYER_ONE_CODE, 
-        PLAYER_ONE_PIECE, 
-        PLAYER_TWO_PIECE,
+        PLAYER_ONE_CODE,
          PLAYER_TWO_CODE,
         newPlayer } from '../constants/GameState';
 

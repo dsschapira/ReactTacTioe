@@ -12,11 +12,11 @@ export const initBoardValues = {
 
 export const PLAYER_ONE_CODE = 'one';
 
-export const PLAYER_ONE_PIECE = 'X';
+const PLAYER_ONE_PIECE = 'X';
 
 export const PLAYER_TWO_CODE = 'two';
 
-export const PLAYER_TWO_PIECE = 'O';
+const PLAYER_TWO_PIECE = 'O';
 
 export const initialState = {
     showModal: true,
