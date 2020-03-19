@@ -121,13 +121,19 @@ export function getComputerPick(board, computerPiece){
     return move.index;
 }
 
-
+/**
+ * Determins if sub is a subArray of master.
+ * AKA if master holds at least all of the items in sub
+ * @param {string[]} sub 
+ * @param {string[]} master 
+ */
 export const isWinSubArray = (sub, master) => {
     let matches = 0;
     let ret = false;
     for(let index in sub){
         if(master.indexOf(sub[index]) > -1){
             matches += 1;
+            //We only care about 3 matches since it only takes 3 to win tic-tac-toe
             if(matches >= 3){
                 ret = true;
                 break;

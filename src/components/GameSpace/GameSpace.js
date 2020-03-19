@@ -34,7 +34,11 @@ function GameSpace() {
     let player;
 
 
-    const handleClick = (id, pos) => {
+    /**
+     * processes click after checking we're in the correct turn
+     * @param {string} id - slot id
+     */
+    const handleClick = (id) => {
         //make sure they're not clicking during the computer's turn
         if(!player.isComputer){
             const boardIndex = BOARD_INDICES[id];
@@ -42,11 +46,19 @@ function GameSpace() {
         }
     }
 
+    /**
+     * Get's computer's pick and updates the board/players
+     */
     const takeComputerTurn = () => {
         const boardIndex = getComputerPick(board, player.piece);
         updateBoardProceedTurn(boardIndex);
     }
 
+    /**
+     * Updates the board, checks for any point updates, and checks whether the game is over.
+     * It will reset if the game has ended.
+     * @param {number} boardIndex - index of which board cell to update
+     */
     const updateBoardProceedTurn = (boardIndex) => {
         // Only update if the slot isn't already selected
         if(board[boardIndex] === ""){
@@ -73,6 +85,9 @@ function GameSpace() {
         }
     }
 
+    /**
+     * Determines if the game has been won
+     */
     const checkWinCondition = () => {
         const selectedSlots = [];
         player.selected.forEach( slotIndex => {
@@ -92,6 +107,9 @@ function GameSpace() {
         return win;
     }
 
+    /**
+     * Determines if the game is over
+     */
     const isGameOver = () => {
         const emptySlots = board.filter( slot => slot === '').length;
         if(checkWinCondition()){
@@ -108,6 +126,12 @@ function GameSpace() {
         }
     }
 
+    /**
+     * Determines if the most recent move blocked the opponent from winning and will award +1
+     * point if a block is detected
+     * @param {number} boardIndex 
+     * @param {string} playerPiece 
+     */
     const checkForBlock = (boardIndex, playerPiece) => {
         const slotId = BOARD_SLOTS[boardIndex];
         const oppPiece = playerPiece === PLAYER_ONE_PIECE ? PLAYER_TWO_PIECE : PLAYER_ONE_PIECE;
@@ -131,6 +155,10 @@ function GameSpace() {
 
     }
 
+    /**
+     * Updates the score for a single player.
+     * @param {number} scoreChange 
+     */
     const handleUpdateScore = (scoreChange) => {
         const players = {...gameState.players};
 
@@ -145,6 +173,10 @@ function GameSpace() {
         updateScore(players);
     }
 
+    /**
+     * Updates the score equally for both players.
+     * @param {number} scoreChange 
+     */
     const handleUpdateScoreEqual = (scoreChange) => {
         const players = {...gameState.players};
 
@@ -161,6 +193,9 @@ function GameSpace() {
         updateScore(players);
     }
 
+    /**
+     * Resets the score when a player loses.
+     */
     const handleScoreReset = () => {
         const players = {...gameState.players};
         const otherPlayer = gameState.currentPlayerTurn === PLAYER_ONE_CODE ? players[PLAYER_TWO_CODE] : players[PLAYER_ONE_CODE];
