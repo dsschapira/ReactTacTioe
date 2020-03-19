@@ -5,6 +5,8 @@ import { GameContext } from '../../context/GameState';
 
 import { PLAYER_ONE_CODE, PLAYER_TWO_CODE, BOARD_INDICES } from '../../constants/GameState'
 
+import { getComputerPick } from '../../services/GameService';
+
 import Piece from '../Piece/Piece';
 
 function GameSpace() {
@@ -14,7 +16,20 @@ function GameSpace() {
     let player;
 
     const handleClick = (id) => {
-        const boardIndex = BOARD_INDICES[id];
+        //make sure they're not clicking during the computer's turn
+        if(!player.isComputer){
+            const boardIndex = BOARD_INDICES[id];
+            updateBoardProceedTurn(boardIndex);
+        }
+    }
+
+    const takeComputerTurn = () => {
+        const boardIndex = getComputerPick(board, player.piece);
+
+        updateBoardProceedTurn(boardIndex);
+    }
+
+    const updateBoardProceedTurn = (boardIndex) => {
         board[boardIndex] = player.piece;
         updateBoard(board);
         const nextPlayer = gameState.currentPlayerTurn === PLAYER_ONE_CODE ? PLAYER_TWO_CODE : PLAYER_ONE_CODE;
@@ -24,7 +39,11 @@ function GameSpace() {
     useEffect(() => {
         board = gameState.board;
         player = gameState.players[gameState.currentPlayerTurn];
-    })
+
+        if(player.isComputer){
+            takeComputerTurn();
+        }
+    });
 
     return (
         <div id="play-area">
