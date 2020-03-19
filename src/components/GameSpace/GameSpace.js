@@ -46,7 +46,9 @@ function GameSpace() {
         if(board[boardIndex] === ""){
             //update the board
             board[boardIndex] = player.piece;
-            updateBoard(board);
+            const players = gameState.players;
+            players[gameState.currentPlayerTurn].selected.push(boardIndex);
+            updateBoard(board, players);
             
             //Check for any scoring
             checkForBlock( boardIndex, player.piece);
@@ -59,7 +61,11 @@ function GameSpace() {
         }
     }
 
-    const isGameOver = (board) => {
+    const isGameOver = () => {
+
+    }
+
+    const checkWinCondition = () => {
 
     }
 
@@ -96,10 +102,6 @@ function GameSpace() {
         }
 
         updateScore(players);
-    }
-
-    const checkWinCondition = () => {
-
     }
 
     useEffect(() => {

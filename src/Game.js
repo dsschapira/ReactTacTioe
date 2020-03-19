@@ -10,13 +10,13 @@ import Modal from './components/Modal/Modal'
 
 function Game() {
 
-  const {gameState, selectPiece, updateModal} = useContext(GameContext);
+  const {gameState, selectPlayer, updateModal} = useContext(GameContext);
 
   console.log("CONTEXT: ",{ gameState })
   const showModal = gameState.showModal
 
   const handleSelection = (playerCode) => {
-    selectPiece(playerCode);
+    selectPlayer(playerCode);
     updateModal(false);
   }
 

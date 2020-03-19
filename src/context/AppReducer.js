@@ -10,7 +10,8 @@ export default (state, action) => {
         case 'UPDATE_BOARD':
             return{
                 ...state,
-                board: action.payload.updatedBoard
+                board: action.payload.updatedBoard,
+                players: action.payload.players
             };
         
         case 'NEXT_TURN':

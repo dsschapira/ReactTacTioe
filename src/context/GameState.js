@@ -26,11 +26,12 @@ export const GlobalProvider = ({ children }) => {
         });
     }
 
-    function updateBoard(updatedBoard){
+    function updateBoard(updatedBoard, players){
         dispatch({
             type: 'UPDATE_BOARD',
             payload: {
-                updatedBoard
+                updatedBoard,
+                players
             }
         })
     }
@@ -57,7 +58,7 @@ export const GlobalProvider = ({ children }) => {
      * Setup the player selections
      * @param {string} playerCode - either PLAYER_ONE_CODE or PLAYER_TWO_CODE
      */
-    function selectPiece(playerCode){
+    function selectPlayer(playerCode){
         const otherPlayer = playerCode === PLAYER_ONE_CODE ? PLAYER_TWO_CODE : PLAYER_ONE_CODE;
 
         state.players[playerCode] = newPlayer(false, state.players[playerCode].piece);
@@ -76,7 +77,7 @@ export const GlobalProvider = ({ children }) => {
             updateModal,
             updateBoard,
             nextTurn,
-            selectPiece,
+            selectPlayer,
             updateScore,
             gameState: state
         }}>
