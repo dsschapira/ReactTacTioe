@@ -33,6 +33,10 @@
     justify-content: center;
 }
 
+.col:hover{
+    cursor: pointer;
+}
+
 .left-col{
     border-right: 2px solid #fff;
 }
