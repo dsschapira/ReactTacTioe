@@ -14,11 +14,11 @@ export const BOARD_INDICES = {
 
 export const PLAYER_ONE_CODE = 'one';
 
-const PLAYER_ONE_PIECE = 'X';
+export const PLAYER_ONE_PIECE = 'X';
 
 export const PLAYER_TWO_CODE = 'two';
 
-const PLAYER_TWO_PIECE = 'O';
+export const PLAYER_TWO_PIECE = 'O';
 
 export const initialState = {
     showModal: true,
