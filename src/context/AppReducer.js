@@ -25,6 +25,12 @@ export default (state, action) => {
                 players: action.payload.players
             };
 
+        case 'UPDATE_SCORE':
+            return{
+                ...state,
+                players: action.payload.players
+            }
+
         default:
             return state;
     }

@@ -44,6 +44,15 @@ export const GlobalProvider = ({ children }) => {
         });
     }
 
+    function updateScore(players){
+        dispatch({
+            type: 'UPDATE_SCORE',
+            payload:{
+                players
+            }
+        })
+    }
+
     /**
      * Setup the player selections
      * @param {string} playerCode - either PLAYER_ONE_CODE or PLAYER_TWO_CODE
@@ -68,6 +77,7 @@ export const GlobalProvider = ({ children }) => {
             updateBoard,
             nextTurn,
             selectPiece,
+            updateScore,
             gameState: state
         }}>
             {children}
