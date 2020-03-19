@@ -52,17 +52,14 @@ export const GlobalProvider = ({ children }) => {
      */
     function selectPiece(playerCode){
         const otherPlayer = playerCode === PLAYER_ONE_CODE ? PLAYER_TWO_CODE : PLAYER_ONE_CODE;
-        const playerPiece = playerCode === PLAYER_ONE_CODE ? PLAYER_ONE_PIECE : PLAYER_TWO_PIECE;
-        const otherPiece = playerCode === PLAYER_ONE_CODE ? PLAYER_TWO_PIECE : PLAYER_ONE_PIECE;
 
-        const players = {};
-        players[playerCode] = newPlayer(false, playerPiece);
-        players[otherPlayer] = newPlayer(true, otherPiece);
+        state.players[playerCode] = newPlayer(false, state.players[playerCode].piece);
+        state.players[otherPlayer] = newPlayer(true, state.players[otherPlayer].piece);
 
         dispatch({
             type: 'SET_PLAYER',
             payload: {
-                players
+                players: state.players
             }
         });
     }
