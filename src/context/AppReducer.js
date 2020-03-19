@@ -32,6 +32,14 @@ export default (state, action) => {
                 players: action.payload.players
             }
 
+        case 'RESET_GAME':
+            return{
+                ...state,
+                players: action.payload.players,
+                currentPlayerTurn: action.payload.currentPlayerTurn,
+                board: action.payload.board
+            }
+
         default:
             return state;
     }

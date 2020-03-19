@@ -70,7 +70,7 @@ export const initialState = {
     board: initBoardArray
 };
 
-export const newPlayer = (isComputer, piece) => {
+export const newPlayer = (isComputer, piece, score = 0, highScore = 0) => {
     const displayName = piece === PLAYER_ONE_PIECE 
         ? (
             isComputer 
@@ -85,11 +85,17 @@ export const newPlayer = (isComputer, piece) => {
     return {
         isComputer,
         displayName,
-        score: 0,
-        highScore: 0,
-        piece: piece,
+        score,
+        highScore,
+        piece,
         selected: []
     };
 }
 
 export const BLOCK_POINTS = 1;
+
+export const WIN_POINTS = 10;
+
+export const DRAW_PONTS = 5;
+
+export const RESET_DELAY_MS = 750;

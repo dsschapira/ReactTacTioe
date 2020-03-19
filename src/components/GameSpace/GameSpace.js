@@ -11,7 +11,10 @@ import {
     BOARD_INDICES,
     BOARD_SLOTS,
     WINNERS_BY_SLOT,
-    BLOCK_POINTS 
+    BLOCK_POINTS,
+    WIN_POINTS,
+    DRAW_PONTS,
+    RESET_DELAY_MS
 } from '../../constants/GameState'
 
 import { getComputerPick, isWinSubArray } from '../../services/GameService';
@@ -23,7 +26,8 @@ function GameSpace() {
     const { gameState, 
             updateBoard,    
             nextTurn,
-            updateScore
+            updateScore,
+            resetGame
         } = useContext(GameContext);
     let board;
     let player;
@@ -56,7 +60,9 @@ function GameSpace() {
 
             //Check if game is over
             if(isGameOver()){
-                console.log("GAME OVER");
+                setTimeout(() => {
+                    resetGame();
+                }, RESET_DELAY_MS)
             }
             else{
                 const nextPlayer = gameState.currentPlayerTurn === PLAYER_ONE_CODE ? PLAYER_TWO_CODE : PLAYER_ONE_CODE;
@@ -86,7 +92,13 @@ function GameSpace() {
 
     const isGameOver = () => {
         const emptySlots = board.filter( slot => slot === '').length;
-        if(checkWinCondition() || emptySlots === 0){
+        if(checkWinCondition()){
+            handleUpdateScore(WIN_POINTS);
+            handleScoreReset();
+            return true;
+        }
+        else if(emptySlots === 0){
+            handleUpdateScoreEqual(DRAW_PONTS);
             return true;
         }
         else{
@@ -118,20 +130,47 @@ function GameSpace() {
     }
 
     const handleUpdateScore = (scoreChange) => {
-        const players = gameState.players;
+        const players = {...gameState.players};
 
-        players[gameState.currentPlayerTurn].score += scoreChange;
+        const currentPlayer = players[gameState.currentPlayerTurn]
 
-        if(players[gameState.currentPlayerTurn].score > players[gameState.currentPlayerTurn].highScore){
-            players[gameState.currentPlayerTurn].highScore = players[gameState.currentPlayerTurn].score;
+        currentPlayer.score += scoreChange;
+
+        if(currentPlayer.score > currentPlayer.highScore){
+            currentPlayer.highScore = currentPlayer.score;
         }
 
         updateScore(players);
     }
 
+    const handleUpdateScoreEqual = (scoreChange) => {
+        const players = {...gameState.players};
+
+        players.one.score += scoreChange;
+        players.two.score += scoreChange;
+
+        if(players.one.score > players.one.highScore){
+            players.one.highScore = players.one.score;
+        }
+        if(players.two.score > players.two.highScore){
+            players.two.highScore = players.two.score;
+        }
+
+        updateScore(players);
+    }
+
+    const handleScoreReset = () => {
+        const players = {...gameState.players};
+        const otherPlayer = gameState.currentPlayerTurn === PLAYER_ONE_CODE ? players[PLAYER_TWO_CODE] : players[PLAYER_ONE_CODE];
+
+        otherPlayer.score = 0;
+
+        updateScore(players);
+    }
+
     useEffect(() => {
-        board = gameState.board;
-        player = gameState.players[gameState.currentPlayerTurn];
+        board = [...gameState.board];
+        player = {...gameState.players[gameState.currentPlayerTurn]};
 
         if(player.isComputer){
             takeComputerTurn();
