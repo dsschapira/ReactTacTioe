@@ -1,13 +1,15 @@
-export const initBoardValues = {
-    slotA: '',
-    slotB: '',
-    slotC: '',
-    slotD: '',
-    slotE: '',
-    slotF: '',
-    slotG: '',
-    slotH: '',
-    slotI: ''
+export const initBoardArray = ['','','','','','','','',''];
+
+export const BOARD_INDICES = {
+    A: 0,
+    B: 1,
+    C: 2,
+    D: 3,
+    E: 4,
+    F: 5,
+    G: 6,
+    H: 7,
+    I: 8
 }
 
 export const PLAYER_ONE_CODE = 'one';
@@ -40,7 +42,7 @@ export const initialState = {
             selected: []
         }
     },
-    board: initBoardValues
+    board: initBoardArray
 };
 
 export const newPlayer = (isComputer, piece) => {
