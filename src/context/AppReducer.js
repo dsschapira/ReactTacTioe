@@ -7,6 +7,12 @@ export default (state, action) => {
                 showModal: action.payload.show
             };
 
+        case 'UPDATE_BOARD':
+            return{
+                ...state,
+                board: action.payload.updatedBoard
+            };
+
         default:
             return state;
     }

@@ -1,25 +1,28 @@
 import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
 
+import { initBoardValues } from '../constants/GameSpace';
+
 // Initial State
 const initialState = {
     showModal: true,
     numPlayers: null,
     currentPlayerTurn: null,
     players: {
-        playerOne: {
+        one: {
             score: 0,
             highScore: 0,
             isComputer: false,
             selected: []
         },
-        playerTwo: {
+        two: {
             score: 0,
             highScore: 0,
-            isComputer: false,
+            isComputer: true,
             selected: []
         }
-    }
+    },
+    board: initBoardValues
 };
 
 // Create context
@@ -39,9 +42,19 @@ export const GlobalProvider = ({ children }) => {
         });
     }
 
+    function updateBoard(updatedBoard){
+        dispatch({
+            type: 'UPDATE_BOARD',
+            payload: {
+                updatedBoard
+            }
+        })
+    }
+
     return (
         <GameContext.Provider value={{
             updateModal,
+            updateBoard,
             gameState: state
         }}>
             {children}
