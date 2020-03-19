@@ -7,7 +7,7 @@ import GameSpace from '../GameSpace/GameSpace';
 
 function ChalkBoard() {
 
-  const {gameState} = useContext(GameContext);
+  const {gameState, swapPlayer} = useContext(GameContext);
 
   return (
     <div id="chalkBoard">
@@ -39,6 +39,9 @@ function ChalkBoard() {
       <div id="eraser">
         <div id="eraser-top"></div>
         <div id="eraser-bottom"></div>
+      </div>
+      <div id="swap-btn-container">
+        <button id="swap-btn" onClick={() => { swapPlayer(); }}>Swap Players</button>
       </div>
     </div>
   );

@@ -91,6 +91,36 @@ export const GlobalProvider = ({ children }) => {
         });
     }
 
+    function swapPlayer(){
+        const players = {...state.players};
+        players.one.selected = [];
+        players.two.selected = [];
+
+        players.one.isComputer = !players.one.isComputer;
+        players.two.isComputer = !players.two.isComputer;
+
+        const oneScoreHolder = players.one.score;
+        const oneHighScoreHolder = players.one.highScore;
+
+        players.one.score = players.two.score;
+        players.one.highScore = players.two.highScore;
+
+        players.two.score = oneScoreHolder;
+        players.two.highScore = oneHighScoreHolder;
+
+        players.one.displayName = players.one.isComputer ? `Player 1 - Computer` : `Player 1`;
+        players.two.displayName = players.two.isComputer ? `Player 2 - Computer` : `Player 2`;
+
+        dispatch({
+            type: 'RESET_GAME',
+            payload: {
+                players,
+                currentPlayerTurn: PLAYER_ONE_CODE,
+                board: initBoardArray
+            }
+        });
+    }
+
     return (
         <GameContext.Provider value={{
             updateModal,
@@ -99,6 +129,7 @@ export const GlobalProvider = ({ children }) => {
             selectPlayer,
             updateScore,
             resetGame,
+            swapPlayer,
             gameState: state
         }}>
             {children}

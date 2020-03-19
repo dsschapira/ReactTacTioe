@@ -89,6 +89,25 @@ ol{
     width: 100%;
 }
 
+#swap-btn-container{
+    position: absolute;
+    bottom: 0.5em;
+}
+
+#swap-btn{
+    font-size: 16px;
+    font-weight: bold;
+    background: rgba(0,0,0,0);
+    color: #fff;
+    padding: 0.5em 1em;
+    border: 1px solid #fff;
+}
+
+#swap-btn:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
 @media only screen and (max-width: 470px) {
     #play-area{
         width: 50%;
