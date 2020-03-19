@@ -61,6 +61,32 @@ ol{
     margin-right: 0.5em;
     border-top: 1px solid #fff;
     align-self: flex-end;
+    display: flex;
+    justify-content: space-between;
+}
+
+#player-one-score-container,
+#player-two-score-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#player-one-score-container h5,
+#player-two-score-container h5{
+    width: 100%;
+    font-size: 20px;
+    margin: 0;
+    margin-bottom: 0.25em;
+    padding: 0;
+    border-bottom: 2px solid #fff;
+}
+
+#player-one-score-container span,
+#player-two-score-container span{
+    font-size: 15px;
+    margin: 0 0.5em;
+    display: block;
+    width: 100%;
 }
 
 @media only screen and (max-width: 470px) {
