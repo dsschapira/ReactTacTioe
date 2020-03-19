@@ -27,6 +27,7 @@ export const initialState = {
             score: 0,
             highScore: 0,
             isComputer: false,
+            displayName: 'Player 1',
             piece: PLAYER_ONE_PIECE,
             selected: []
         },
@@ -34,6 +35,7 @@ export const initialState = {
             score: 0,
             highScore: 0,
             isComputer: false,
+            displayName: 'Player 2',
             piece: PLAYER_TWO_PIECE,
             selected: []
         }
@@ -42,8 +44,20 @@ export const initialState = {
 };
 
 export const newPlayer = (isComputer, piece) => {
+    const displayName = piece === PLAYER_ONE_PIECE 
+        ? (
+            isComputer 
+            ? `Player 1 - Computer`
+            : `Player 1`
+        )
+        : (
+            isComputer
+            ? `Player 2 - Computer`
+            : `Player 2`
+        );
     return {
         isComputer,
+        displayName,
         score: 0,
         highScore: 0,
         piece: piece,

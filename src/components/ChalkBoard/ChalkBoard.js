@@ -26,12 +26,12 @@ function ChalkBoard() {
       <GameSpace />
       <div id="score-area">
         <div id="player-one-score-container">
-          <h5>Player 1</h5>
+          <h5>{gameState.players.one.displayName}</h5>
           <span>Score: {gameState.players.one.score}</span>
           <span>High Score: {gameState.players.one.highScore}</span>
         </div>
         <div id="player-two-score-container">
-          <h5>Player 2</h5>
+          <h5>{gameState.players.two.displayName}</h5>
           <span>Score: {gameState.players.two.score}</span>
           <span>High Score: {gameState.players.two.highScore}</span>
         </div>
