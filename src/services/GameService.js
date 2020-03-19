@@ -36,6 +36,7 @@ function winning(board, playerPiece){
 
 /**
  * Use the MiniMax algorithm to choose the best move for the computer player
+ * solid explanation here: https://medium.com/@alialaa/tic-tac-toe-with-javascript-es2015-ai-player-with-minimax-algorithm-59f069f46efa
  * @param {string[]} boardArr 
  * @param {string} computerPiece 
  * @param {string} playerPiece 
