@@ -1,21 +1,29 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import './GameSpace.css';
 
 import { GameContext } from '../../context/GameState';
+
+import { PLAYER_ONE_CODE, PLAYER_TWO_CODE } from '../../constants/GameState'
 
 import Piece from '../Piece/Piece';
 
 function GameSpace() {
 
-    const {gameState, updateBoard} = useContext(GameContext);
-
-    const board = gameState.board;
-    const player = gameState.currentPlayerTurn;
+    const {gameState, updateBoard, nextTurn} = useContext(GameContext);
+    let board;
+    let player;
 
     const handleClick = (id) => {
-        board[id] = 'X';
+        board[id] = player.piece;
         updateBoard(board);
+        const nextPlayer = gameState.currentPlayerTurn === PLAYER_ONE_CODE ? PLAYER_TWO_CODE : PLAYER_ONE_CODE;
+        nextTurn(nextPlayer);
     }
+
+    useEffect(() => {
+        board = gameState.board;
+        player = gameState.players[gameState.currentPlayerTurn];
+    })
 
     return (
         <div id="play-area">

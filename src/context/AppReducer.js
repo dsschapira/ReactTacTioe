@@ -12,6 +12,12 @@ export default (state, action) => {
                 ...state,
                 board: action.payload.updatedBoard
             };
+        
+        case 'NEXT_TURN':
+            return{
+                ...state,
+                currentPlayerTurn: action.payload.currentPlayerTurn
+            };
 
         default:
             return state;
