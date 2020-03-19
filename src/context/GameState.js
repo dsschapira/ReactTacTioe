@@ -1,31 +1,15 @@
 import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
 
-import { initBoardValues, PLAYER_ONE_CODE, PLAYER_ONE_PIECE, PLAYER_TWO_PIECE } from '../constants/GameState';
+import {initialState, 
+        PLAYER_ONE_CODE, 
+        PLAYER_ONE_PIECE, 
+        PLAYER_TWO_PIECE,
+         PLAYER_TWO_CODE,
+        newPlayer } from '../constants/GameState';
 
 // Initial State
-const initialState = {
-    showModal: true,
-    numPlayers: null,
-    currentPlayerTurn: PLAYER_ONE_CODE,
-    players: {
-        one: {
-            score: 0,
-            highScore: 0,
-            isComputer: false,
-            piece: PLAYER_ONE_PIECE,
-            selected: []
-        },
-        two: {
-            score: 0,
-            highScore: 0,
-            isComputer: true,
-            piece: PLAYER_TWO_PIECE,
-            selected: []
-        }
-    },
-    board: initBoardValues
-};
+
 
 // Create context
 export const GameContext = createContext(initialState);
@@ -62,11 +46,33 @@ export const GlobalProvider = ({ children }) => {
         });
     }
 
+    /**
+     * Setup the player selections
+     * @param {string} playerCode - either PLAYER_ONE_CODE or PLAYER_TWO_CODE
+     */
+    function selectPiece(playerCode){
+        const otherPlayer = playerCode === PLAYER_ONE_CODE ? PLAYER_TWO_CODE : PLAYER_ONE_CODE;
+        const playerPiece = playerCode === PLAYER_ONE_CODE ? PLAYER_ONE_PIECE : PLAYER_TWO_PIECE;
+        const otherPiece = playerCode === PLAYER_ONE_CODE ? PLAYER_TWO_PIECE : PLAYER_ONE_PIECE;
+
+        const players = {};
+        players[playerCode] = newPlayer(false, playerPiece);
+        players[otherPlayer] = newPlayer(true, otherPiece);
+
+        dispatch({
+            type: 'SET_PLAYER',
+            payload: {
+                players
+            }
+        });
+    }
+
     return (
         <GameContext.Provider value={{
             updateModal,
             updateBoard,
             nextTurn,
+            selectPiece,
             gameState: state
         }}>
             {children}

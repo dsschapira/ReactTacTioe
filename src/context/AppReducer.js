@@ -19,6 +19,12 @@ export default (state, action) => {
                 currentPlayerTurn: action.payload.currentPlayerTurn
             };
 
+        case 'SET_PLAYER':
+            return{
+                ...state,
+                players: action.payload.players
+            };
+
         default:
             return state;
     }
