@@ -1,0 +1,39 @@
+
+#play-area{
+    width: 60%;
+    max-width: 500px;
+    height: 20px;
+    margin-top: 2em;
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.row{
+    width: 100%;
+    display: flex;
+}
+#top-row{
+    border-bottom: 2px solid #fff;
+    height: 100px;
+}
+
+#mid-row{
+    border-bottom: 2px solid #fff;
+    height: 100px;
+}
+
+#bot-row{
+    height: 100px;
+}
+
+.col{
+    width: 33%;
+}
+
+.left-col{
+    border-right: 2px solid #fff;
+}
+
+.mid-col{
+    border-right: 2px solid #fff;
+}
