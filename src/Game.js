@@ -12,7 +12,7 @@ function Game() {
 
   const {gameState, selectPlayer, updateModal} = useContext(GameContext);
 
-  console.log("CONTEXT: ",{ gameState })
+  console.log("CONTEXT: ",gameState )
   const showModal = gameState.showModal
 
   const handleSelection = (playerCode) => {

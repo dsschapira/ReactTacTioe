@@ -113,6 +113,22 @@ function miniMax(boardArr, computerPiece, playerPiece, currentPiece){
 export function getComputerPick(board, computerPiece){
     const playerPiece = computerPiece === PLAYER_ONE_PIECE ? PLAYER_TWO_PIECE : PLAYER_ONE_PIECE;
     const move = miniMax(board, computerPiece, playerPiece, computerPiece);
-    console.log("MOVE: ", move);
+
     return move.index;
+}
+
+
+export const isWinSubArray = (sub, master) => {
+    let matches = 0;
+    let ret = false;
+    for(let index in sub){
+        if(master.indexOf(sub[index]) > -1){
+            matches += 1;
+            if(matches >= 3){
+                ret = true;
+                break;
+            }
+        }
+    }
+    return ret;
 }

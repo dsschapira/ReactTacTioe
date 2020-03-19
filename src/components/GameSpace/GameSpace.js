@@ -14,7 +14,7 @@ import {
     BLOCK_POINTS 
 } from '../../constants/GameState'
 
-import { getComputerPick } from '../../services/GameService';
+import { getComputerPick, isWinSubArray } from '../../services/GameService';
 
 import Piece from '../Piece/Piece';
 
@@ -46,6 +46,7 @@ function GameSpace() {
         if(board[boardIndex] === ""){
             //update the board
             board[boardIndex] = player.piece;
+            //update players object with new selection
             const players = gameState.players;
             players[gameState.currentPlayerTurn].selected.push(boardIndex);
             updateBoard(board, players);
@@ -54,19 +55,43 @@ function GameSpace() {
             checkForBlock( boardIndex, player.piece);
 
             //Check if game is over
-
-
-            const nextPlayer = gameState.currentPlayerTurn === PLAYER_ONE_CODE ? PLAYER_TWO_CODE : PLAYER_ONE_CODE;
-            nextTurn(nextPlayer);
+            if(isGameOver()){
+                console.log("GAME OVER");
+            }
+            else{
+                const nextPlayer = gameState.currentPlayerTurn === PLAYER_ONE_CODE ? PLAYER_TWO_CODE : PLAYER_ONE_CODE;
+                nextTurn(nextPlayer);
+            }
         }
     }
 
-    const isGameOver = () => {
+    const checkWinCondition = () => {
+        const selectedSlots = [];
+        player.selected.forEach( slotIndex => {
+            selectedSlots.push(BOARD_SLOTS[slotIndex]);
+        });
 
+        const win = selectedSlots.some( (selectedSlot, index) => {
+            const winners = WINNERS_BY_SLOT[selectedSlot];
+
+            for(const winner of winners){
+                if(isWinSubArray(winner, selectedSlots)){
+                    return true;
+                }
+            }
+        });
+
+        return win;
     }
 
-    const checkWinCondition = () => {
-
+    const isGameOver = () => {
+        const emptySlots = board.filter( slot => slot === '').length;
+        if(checkWinCondition() || emptySlots === 0){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     const checkForBlock = (boardIndex, playerPiece) => {
