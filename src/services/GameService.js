@@ -6,10 +6,11 @@ import {PLAYER_ONE_PIECE, PLAYER_TWO_PIECE} from '../constants/GameState';
  */
 function emptyIndecies(board) {
     let retArr = [];
-    let tempArr = board.map( (slot, index) => {
+    board.map( (slot, index) => {
         if(slot !== PLAYER_ONE_PIECE && slot !== PLAYER_TWO_PIECE){
             retArr.push(index);
         }
+        return true; //expected return inside arrow method
     });
 
     return retArr;

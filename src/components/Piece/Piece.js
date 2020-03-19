@@ -1,8 +1,8 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 
 import { GameContext } from '../../context/GameState';
 
-import { PLAYER_ONE_CODE, PLAYER_TWO_CODE, BOARD_INDICES} from '../../constants/GameState';
+import { BOARD_INDICES} from '../../constants/GameState';
 
 import './Piece.css';
 

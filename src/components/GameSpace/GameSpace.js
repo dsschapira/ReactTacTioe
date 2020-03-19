@@ -1,5 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {useSpring, animated} from 'react-spring';
+import React, {useContext, useEffect} from 'react';
 import './GameSpace.css';
 
 import { GameContext } from '../../context/GameState';
@@ -102,6 +101,7 @@ function GameSpace() {
                     return true;
                 }
             }
+            return false;
         });
 
         return win;
