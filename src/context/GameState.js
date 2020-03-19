@@ -20,6 +20,11 @@ export const GlobalProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AppReducer, initialState);
 
     // Actions
+
+    /**
+     * Updates whether to show the modal or not
+     * @param {boolean} show 
+     */
     function updateModal(show){
         dispatch({
             type: 'UPDATE_MODAL',
@@ -29,6 +34,11 @@ export const GlobalProvider = ({ children }) => {
         });
     }
 
+    /**
+     * Updates the board and the players.selected property
+     * @param {string[]} updatedBoard 
+     * @param {object} players 
+     */
     function updateBoard(updatedBoard, players){
         dispatch({
             type: 'UPDATE_BOARD',
@@ -39,6 +49,10 @@ export const GlobalProvider = ({ children }) => {
         })
     }
 
+    /**
+     * advances the turn
+     * @param {string} playerKey 
+     */
     function nextTurn(playerKey){
         dispatch({
             type: 'NEXT_TURN',
@@ -48,6 +62,10 @@ export const GlobalProvider = ({ children }) => {
         });
     }
 
+    /**
+     * Updates the score property of the players object in state
+     * @param {object} players - same as gameState.players / state.players
+     */
     function updateScore(players){
         dispatch({
             type: 'UPDATE_SCORE',
@@ -57,6 +75,9 @@ export const GlobalProvider = ({ children }) => {
         })
     }
 
+    /**
+     * resets the game board, but keeps the scores
+     */
     function resetGame(){
         const players = {...state.players};
         players.one.selected = [];
@@ -73,7 +94,7 @@ export const GlobalProvider = ({ children }) => {
     }
 
     /**
-     * Setup the player selections
+     * Select player to start the game as
      * @param {string} playerCode - either PLAYER_ONE_CODE or PLAYER_TWO_CODE
      */
     function selectPlayer(playerCode){
@@ -91,6 +112,9 @@ export const GlobalProvider = ({ children }) => {
         });
     }
 
+    /**
+     * swap player 1 and 2 control and scoring/displayName details
+     */
     function swapPlayer(){
         const players = {...state.players};
         players.one.selected = [];

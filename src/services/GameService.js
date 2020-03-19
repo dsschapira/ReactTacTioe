@@ -43,6 +43,9 @@ function winning(board, playerPiece){
  * @param {string} currentPiece 
  */
 function miniMax(boardArr, computerPiece, playerPiece, currentPiece){
+    //effectively, this plays itself out from the initial passed in board and selects the 
+    // highest scoring (most likely to win) position for itself while minimizing the 
+    // score for the opponent player
     const availableSpots = emptyIndecies(boardArr);
 
     if( winning(boardArr, playerPiece) ){
